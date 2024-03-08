@@ -1,47 +1,47 @@
 /*
-    * DDL : µ¥ÀÌÅÍ Á¤ÀÇ ¾ð¾î
+    * DDL : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
     
-        - ALTER : °´Ã¼(Å×ÀÌºí, »ç¿ëÀÚ, ºä, ...)¸¦ ±¸¹®
+        - ALTER : ï¿½ï¿½Ã¼(ï¿½ï¿½ï¿½Ìºï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½, ...)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         
-            ALTER TABLE Å×ÀÌºí¸í º¯°æÇÒ³»¿ë;
+            ALTER TABLE ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½;
             
-            + º¯°æ »çÇ×
-              - ÄÃ·³ Á¦¾à Á¶°Ç Ãß°¡/(¼öÁ¤ - NOT NULL)/»èÁ¦
-              - ÄÃ·³ Ãß°¡/¼öÁ¤/»èÁ¦
-              - Å×ÀÌºí¸í/Ä®·³¸í/Á¦¾àÁ¶°Ç¸í º¯°æ
+            + ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+              - ï¿½Ã·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½/(ï¿½ï¿½ï¿½ï¿½ - NOT NULL)/ï¿½ï¿½ï¿½ï¿½
+              - ï¿½Ã·ï¿½ ï¿½ß°ï¿½/ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½
+              - ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½/Ä®ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 */
--- (1) ÄÃ·³ Ãß°¡/¼öÁ¤/»èÁ¦
---      * ÄÃ·³ Ãß°¡ : ALTER TABLE Å×ÀÌºí¸í ADD Ãß°¡ÇÒ_ÄÃ·³¸í ÀÚ·áÇü
+-- (1) ï¿½Ã·ï¿½ ï¿½ß°ï¿½/ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½
+--      * ï¿½Ã·ï¿½ ï¿½ß°ï¿½ : ALTER TABLE ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ADD ï¿½ß°ï¿½ï¿½ï¿½_ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½ï¿½ï¿½
 
---      DEPT_TABLE Å×ÀÌºí¿¡ CNAME ÄÃ·³ Ãß°¡ (VARCHAR2(20))
+--      DEPT_TABLE ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ CNAME ï¿½Ã·ï¿½ ï¿½ß°ï¿½ (VARCHAR2(20))
 ALTER TABLE DEPT_TABLE ADD CNAME VARCHAR2(20);
 SELECT * FROM DEPT_TABLE;
 
 
---      DEPT_TABLE Å×ÀÌºí¿¡ LNAME ÄÃ·³ Ãß°¡ (VARCHAR2(20), 'ÇÑ±¹')
-ALTER TABLE DEPT_TABLE ADD LNAME VARCHAR2(20) DEFAULT 'ÇÑ±¹';
+--      DEPT_TABLE ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ LNAME ï¿½Ã·ï¿½ ï¿½ß°ï¿½ (VARCHAR2(20), 'ï¿½Ñ±ï¿½')
+ALTER TABLE DEPT_TABLE ADD LNAME VARCHAR2(20) DEFAULT 'ï¿½Ñ±ï¿½';
 -----------------------
---      * ÄÃ·³ ¼öÁ¤ : ALTER TABLE Å×ÀÌºí¸í MODIFY ÄÃ·³¸í º¯°æÇÒ_ÀÚ·áÇü;   -- ÀÚ·áÇü º¯°æ
---                   ALTER TABLE Å×ÀÌºí¸í MODIFY ÄÃ·³¸í DEFAULT ±âº»°ª; -- ±âº»°ª º¯°æ
+--      * ï¿½Ã·ï¿½ ï¿½ï¿½ï¿½ï¿½ : ALTER TABLE ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ MODIFY ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½Ú·ï¿½ï¿½ï¿½;   -- ï¿½Ú·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+--                   ALTER TABLE ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ MODIFY ï¿½Ã·ï¿½ï¿½ï¿½ DEFAULT ï¿½âº»ï¿½ï¿½; -- ï¿½âº»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
---  DEPT_TABLE Å×ÀÌºí¿¡¼­ DEPT_ID ÄÃ·³ÀÇ ÀÚ·áÇüÀ» CHAR(5) À¸·Î º¯°æ;
-ALTER TABLE DEPT_TABLE MODIFY DEPT_ID CHAR(5);  -- ¹ÙÀÌÆ® Å©±â º¯°æ : 2->5
+--  DEPT_TABLE ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ï¿½ï¿½ DEPT_ID ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½ï¿½ï¿½ï¿½ï¿½ CHAR(5) ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½;
+ALTER TABLE DEPT_TABLE MODIFY DEPT_ID CHAR(5);  -- ï¿½ï¿½ï¿½ï¿½Æ® Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : 2->5
 
--- DEPT_ID ÄÃ·³ÀÇ ÀÚ·áÇüÀ» NUMBER·Î º¯°æ
-ALTER TABLE DEPT_TABLE MODIFY DEPT_ID NUMBER;   -- Çü½Ä ¿À·ù ¹ß»ý!
+-- DEPT_ID ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½ï¿½ï¿½ï¿½ï¿½ NUMBERï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+ALTER TABLE DEPT_TABLE MODIFY DEPT_ID NUMBER;   -- ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½!
 
---  DEPT_ID  ÄÃ·³ÀÇ ÀÚ·áÇüÀ» VARCHAR2(10);
-ALTER TABLE DEPT_TABLE MODIFY DEPT_ID VARCHAR2(20); -- Á¤»ó ÀÛµ¿ÇÔ!
+--  DEPT_ID  ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½ï¿½ï¿½ï¿½ï¿½ VARCHAR2(10);
+ALTER TABLE DEPT_TABLE MODIFY DEPT_ID VARCHAR2(20); -- ï¿½ï¿½ï¿½ï¿½ ï¿½Ûµï¿½ï¿½ï¿½!
 
--- DEPT_TITLE ÄÃ·³ÀÇ ÀÚ·áÇüÀ» VARCHAR2(20)À¸·Î º¯°æ (35 -> 20)
-ALTER TABLE DEPT_TABLE MODIFY DEPT_TITLE VARCHAR2(20); -- Á¤»ó µ¿ÀÛ
+-- DEPT_TITLE ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½ï¿½ï¿½ï¿½ï¿½ VARCHAR2(20)ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (35 -> 20)
+ALTER TABLE DEPT_TABLE MODIFY DEPT_TITLE VARCHAR2(20); -- ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
--- 20 -> 10 ¹ÙÀÌÆ® Å©±â º¯°æ
-ALTER TABLE DEPT_TABLE MODIFY DEPT_TITLE VARCHAR2(10); -- Å©±â ¿À·ù!
+-- 20 -> 10 ï¿½ï¿½ï¿½ï¿½Æ® Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+ALTER TABLE DEPT_TABLE MODIFY DEPT_TITLE VARCHAR2(10); -- Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!
 
 ----------------------------
---          * ÄÃ·³ »èÁ¦ : DROP COLUMN »èÁ¦ÇÒ ÄÃ·³¸í
---  Å×ÀÌºí º¹»ç : DEPT_COPY »ý¼º (DEPT_TABLE Å×ÀÌºí º¹»ç)
+--          * ï¿½Ã·ï¿½ ï¿½ï¿½ï¿½ï¿½ : DROP COLUMN ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½
+--  ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ : DEPT_COPY ï¿½ï¿½ï¿½ï¿½ (DEPT_TABLE ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½)
 CREATE TABLE DEPT_COPY
 AS SELECT * FROM DEPT_TABLE;
 
@@ -53,68 +53,68 @@ ALTER TABLE DEPT_COPY DROP COLUMN CNAME;
 ALTER TABLE DEPT_COPY DROP COLUMN DEPT_ID;
 ALTER TABLE DEPT_COPY DROP COLUMN DEPT_TITLE;
 ALTER TABLE DEPT_COPY DROP COLUMN LOCATION_ID;
---> Å×ÀÌºí¿¡´Â ÃÖ¼Ò ÇÑ °³ÀÇ ÄÃ·³Àº Á¸ÀçÇØ¾ß ÇÔ.
+--> ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½ï¿½.
 --------------------------------------------------------------------------------
 /*
-    [2] Á¦¾à Á¶°Ç Ãß°¡/»èÁ¦ -- ¼öÁ¤ÇÏ°íÀÚ ÇÏ¸é, »èÁ¦ ÈÄ Ãß°¡
+    [2] ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½/ï¿½ï¿½ï¿½ï¿½ -- ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½ ï¿½Ï¸ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ß°ï¿½
     
-    * PRIMARY KEY  | ADD [CONTRAINT Á¦¾àÁ¶°Ç¸í] PRIMARY KEY(ÄÃ·³¸í)
-    * FOREIGN KEY  | ADD [CONTRAINT Á¦¾àÁ¶°Ç¸í] FOREIGN KEY(ÄÃ·³¸í) REFERENCES ÂüÁ¶ÇÒÅ×ÀÌºí¸í [(¿¬°áÇÒÄÃ·³¸í)]
-    * NOT NULL     | MODIFY ÄÃ·³¸í [CONTRAINT Á¦¾àÁ¶°Ç¸í] NOT NULL
-    * UNIQUE       | ADD [CONTRAINT Á¦¾àÁ¶°Ç¸í] UNIQUE(ÄÃ·³¸í)
-    * CHECK        | ADD [CONTRAINT Á¦¾àÁ¶°Ç¸í] CHECK(Á¶°Ç½Ä-ÄÃ·³¸íÆ÷ÇÔµÈÁ¶°Ç½Ä)
+    * PRIMARY KEY  | ADD [CONTRAINT ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½] PRIMARY KEY(ï¿½Ã·ï¿½ï¿½ï¿½)
+    * FOREIGN KEY  | ADD [CONTRAINT ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½] FOREIGN KEY(ï¿½Ã·ï¿½ï¿½ï¿½) REFERENCES ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ [(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½)]
+    * NOT NULL     | MODIFY ï¿½Ã·ï¿½ï¿½ï¿½ [CONTRAINT ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½] NOT NULL
+    * UNIQUE       | ADD [CONTRAINT ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½] UNIQUE(ï¿½Ã·ï¿½ï¿½ï¿½)
+    * CHECK        | ADD [CONTRAINT ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½] CHECK(ï¿½ï¿½ï¿½Ç½ï¿½-ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôµï¿½ï¿½ï¿½ï¿½Ç½ï¿½)
 */
--- DEPT_TABLE -> DEPT_ID ±âº»Å° ¼³Á¤ (DTABLE_PK)
---               DEPT_TITLE Áßº¹Çã¿ëX (DTABLE_UQ)
---               LNAME NULL Çã¿ëX (DTABLE_NN)
+-- DEPT_TABLE -> DEPT_ID ï¿½âº»Å° ï¿½ï¿½ï¿½ï¿½ (DTABLE_PK)
+--               DEPT_TITLE ï¿½ßºï¿½ï¿½ï¿½ï¿½X (DTABLE_UQ)
+--               LNAME NULL ï¿½ï¿½ï¿½X (DTABLE_NN)
 ALTER TABLE DEPT_TABLE
     ADD CONSTRAINT DTABLE_PK PRIMARY KEY(DEPT_ID)
     ADD CONSTRAINT DTABLE_UQ UNIQUE(DEPT_TITLE)
     MODIFY LNAME CONSTRAINT DTABLE_NN NOT NULL;
     
--- [»èÁ¦]
---  * DRPO CONSTRAINT Á¦¾àÁ¶°Ç¸í -- NOT NULLÀº »èÁ¦°¡ ¾øÀ½..!
---          + NOT NULL Á¦¾à Á¶°ÇÀ» º¯°æ -> NULLÀ» Çã¿ë
---              MODIFY ÄÃ·³¸é NULL;
--- DEPT_TABLE¿¡¼­ ±âº»Å° (DTABLE_PK) Á¦¾àÁ¶°ÇÀ» »èÁ¦
+-- [ï¿½ï¿½ï¿½ï¿½]
+--  * DRPO CONSTRAINT ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ -- NOT NULLï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½..!
+--          + NOT NULL ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ -> NULLï¿½ï¿½ ï¿½ï¿½ï¿½
+--              MODIFY ï¿½Ã·ï¿½ï¿½ï¿½ NULL;
+-- DEPT_TABLEï¿½ï¿½ï¿½ï¿½ ï¿½âº»Å° (DTABLE_PK) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 ALTER TABLE DEPT_TABLE DROP CONSTRAINT DTABLE_PK;
 
 
---  DEPT_TABLE¿¡¼­ DTABLE_UQ Á¦¾àÁ¶°Ç »èÁ¦, LNAME ÄÃ·³µµ NULL »ç¿ë
+--  DEPT_TABLEï¿½ï¿½ï¿½ï¿½ DTABLE_UQ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, LNAME ï¿½Ã·ï¿½ï¿½ï¿½ NULL ï¿½ï¿½ï¿½
 ALTER TABLE DEPT_TABLE
     DROP CONSTRAINT DTABLE_UQ
     MODIFY LNAME NULL;
 --------------------------------------------------------------------------------
 /*
-    [3] ÀÌ¸§À» º¯°æ. (ÄÃ·³/Å×ÀÌºí/Á¦¾àÁ¶°Ç)
+    [3] ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. (ï¿½Ã·ï¿½/ï¿½ï¿½ï¿½Ìºï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
     
-        + ÄÃ·³¸í º¯°æ : RENAME COLUMN ±âÁ¸ÄÃ·³¸í TO º¯°æÇÒÄÃ·³¸í
+        + ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : RENAME COLUMN ï¿½ï¿½ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ TO ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½
         
-        + Á¦¾àÁ¶°Ç¸í º¯°æ : RENAME CONSTRAINT ±âÁ¸Á¦¾àÁ¶°Ç¸í TO º¯°æÇÒÁ¦Á¶°Ç¸í
+        + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ ï¿½ï¿½ï¿½ï¿½ : RENAME CONSTRAINT ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ TO ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½
         
-        * Å×ÀÌºí¸í º¯°æ : RENAME TO ¹Ù²ÜÅ×ÀÌºí¸í
+        * ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : RENAME TO ï¿½Ù²ï¿½ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½
 */
 -- DEPT_TITLE -> DEPT_NAME
 ALTER TABLE DEPT_TABLE RENAME COLUMN DEPT_TITLE TO DEPT_NAME;
 
--- Á¦¾àÁ¶°Ç¸í º¯°æ: SYS_c008456 -> DTABLE_NN
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ ï¿½ï¿½ï¿½ï¿½: SYS_c008456 -> DTABLE_NN
 ALTER TABLE DEPT_TABLE RENAME CONSTRAINT SYS_C008456 TO DTABLE_NN;
 
--- Å×ÀÌºí¸í º¯°æ: DEPT_TABLE -> DEPT_TEST
+-- ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: DEPT_TABLE -> DEPT_TEST
 ALTER TABLE DEPT_TABLE RENAME TO DEPT_TEST;
 
 --------------------------------------------------------------------------------
 /*
-    * Å×ÀÌºí »èÁ¦ (DROP)
+    * ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ (DROP)
     
-    [Ç¥Çö½Ä]
-            DROP TABLE Å×ÀÌºí¸í
+    [Ç¥ï¿½ï¿½ï¿½ï¿½]
+            DROP TABLE ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½
             
-    * ´Ù¸¥ Å×ÀÌºí¿¡¼­ ÂüÁ¶ ÁßÀÎ Å×ÀÌºíÀÇ °æ¿ì »èÁ¦°¡ µÇÁö ¾Ê´Â´Ù.
-      ¸¸¾à »èÁ¦ÇÏ°íÀÚ ÇÑ´Ù¸é,
-        1. ÀÚ½Ä Å×ÀÌºí(ÂüÁ¶ÇÏ°í ÀÖ´Â Å×ÀÌºí)À» ¸ÕÀú »èÁ¦ÇÑ ÈÄ »èÁ¦
-        2. ºÎ¸ð Å×ÀÌºí¸¸ »èÁ¦ÇÏ´Âµ¥, Á¦¾à Á¶°Ç±îÁö »èÁ¦ÇÏ´Â ¹æ¹ý
-            DROP TABLE Å×ÀÌºí¸í CASCADE CONSTRAINTS
+    * ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½.
+      ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½ ï¿½Ñ´Ù¸ï¿½,
+        1. ï¿½Ú½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½Ìºï¿½)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        2. ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´Âµï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ç±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½
+            DROP TABLE ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ CASCADE CONSTRAINTS
 */
 DROP TABLE DEPT_TEST;
 COMMIT;

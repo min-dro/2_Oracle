@@ -1,287 +1,287 @@
 /*
     * JOIN
-    : µÎ °³ ÀÌ»óÀÇ Å×ÀÌºí¿¡¼­ µ¥ÀÌÅÍ¸¦ Á¶È¸ÇÏ°íÀÚ ÇÒ ¶§ »ç¿ëÇÏ´Â ±¸¹®
-      Á¶È¸ °á°ú´Â ÇÏ³ªÀÇ °á°ú¹°(RESULT SET)·Î ³ª¿È
+    : ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½È¸ï¿½Ï°ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½
+      ï¿½ï¿½È¸ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½(RESULT SET)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
       
-    : °ü°èÇü µ¥ÀÌÅÍº£ÀÌ½º¿¡¼­´Â ÃÖ¼ÒÇÑÀÇ µ¥ÀÌÅÍ¸¦ °¢°¢ÀÇ Å×ÀÌºí¿¡ ´ã°í ÀÖÀ½
-      (Áßº¹ ÀúÀåÀ» ÃÖ¼ÒÈ­ÇÏ±â À§ÇØ¼­ ÃÖ´ëÇÑ ÂÉ°³¼­ °ü¸®ÇÔ)
+    : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+      (ï¿½ßºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¼ï¿½È­ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½É°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
     
-    => °ü°èÇü µ¥ÀÌÅÍº£ÀÌ½º¿¡¼­ SQL¹®À» ÀÌ¿ëÇÑ Å×ÀÌºí°£ "°ü°è"¸¦ ¸Î´Â ¹æ¹ý
-    (¹«ÀÛÁ¤ ´Ù Á¶È¸¸¦ ÇÏ´Â °Ô ¾Æ´Ï¶ó °¢ Å×ÀÌºí°£ ¿¬°á °í¸®·Î¼­ÀÇ µ¥ÀÌÅÍ¸¦ ¸ÅÄª½ÃÄÑ¼­ Á¶È¸ÇØ¾ß ÇÔ!)
+    => ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ï¿½ï¿½ï¿½ï¿½ SQLï¿½ï¿½ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ "ï¿½ï¿½ï¿½ï¿½"ï¿½ï¿½ ï¿½Î´ï¿½ ï¿½ï¿½ï¿½
+    (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È¸ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½ ï¿½Æ´Ï¶ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Î¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½Äªï¿½ï¿½ï¿½Ñ¼ï¿½ ï¿½ï¿½È¸ï¿½Ø¾ï¿½ ï¿½ï¿½!)
     
-    -JOINÀº Å©°Ô "¿À¶óÅ¬ Àü¿ë ±¸¹®"°ú "ANSI ±¸¹®" (ANSI == ¹Ì±¹±¹¸³Ç¥ÁØÇùÈ¸)
+    -JOINï¿½ï¿½ Å©ï¿½ï¿½ "ï¿½ï¿½ï¿½ï¿½Å¬ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½"ï¿½ï¿½ "ANSI ï¿½ï¿½ï¿½ï¿½" (ANSI == ï¿½Ì±ï¿½ï¿½ï¿½ï¿½ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½È¸)
     
-    [JOIN ¿ë¾î Á¤¸®]
+    [JOIN ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½]
     
-            ¿À¶óÅ¬ Àü¿ë ±¸¹®               |               ANSI ±¸¹®
+            ï¿½ï¿½ï¿½ï¿½Å¬ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½               |               ANSI ï¿½ï¿½ï¿½ï¿½
     ---------------------------------------------------------------------------------------
-            µî°¡Á¶ÀÎ(µî°¡Á¶ÀÎ(EQUAL JOIN)  |           ³»ºÎÁ¶ÀÎ (INNER JOIN)=> JOIN USING/ON
+            ï¿½î°¡ï¿½ï¿½ï¿½ï¿½(ï¿½î°¡ï¿½ï¿½ï¿½ï¿½(EQUAL JOIN)  |           ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (INNER JOIN)=> JOIN USING/ON
     ---------------------------------------------------------------------------------------
-            Æ÷°ýÁ¶ÀÎ                      |     ¿ÞÂÊ ¿ÜºÎ Á¶ÀÎ (LEFT OUTER JOIN)
-        ( LEFT OUTER )                   |     ¿À¸¥ÂÊ ¿ÜºÎ Á¶ÀÎ (RIGHT OUTER JOIN)
-        ( RIGHT OUTER )                  |     ÀüÃ¼ ¿ÜºÎ Á¶ÀÎ (FU:: OUTER JOIN)
+            ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½                      |     ï¿½ï¿½ï¿½ï¿½ ï¿½Üºï¿½ ï¿½ï¿½ï¿½ï¿½ (LEFT OUTER JOIN)
+        ( LEFT OUTER )                   |     ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Üºï¿½ ï¿½ï¿½ï¿½ï¿½ (RIGHT OUTER JOIN)
+        ( RIGHT OUTER )                  |     ï¿½ï¿½Ã¼ ï¿½Üºï¿½ ï¿½ï¿½ï¿½ï¿½ (FU:: OUTER JOIN)
     ---------------------------------------------------------------------------------------
-            ÀÚÃ¼Á¶ÀÎ  (SELF JOIN)         |             JOIN ON
-        ºñµî°¡ Á¶ÀÎ  (NON EQUAL)          |
+            ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½  (SELF JOIN)         |             JOIN ON
+        ï¿½ï¿½î°¡ ï¿½ï¿½ï¿½ï¿½  (NON EQUAL)          |
     ----------------------------------------------------------------------------------------
 */
--- ÀüÃ¼ »ç¿øµéÀÇ »ç¹ø, »ç¿ø¸í, ºÎ¼­ÄÚµå, ºÎ¼­¸íÀ» Á¶È¸
+-- ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Î¼ï¿½ï¿½Úµï¿½, ï¿½Î¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
 SELECT EMP_ID, EMP_NAME, DEPT_CODE
 FROM EMPLOYEE;
 
 SELECT DEPT_ID, DEPT_TITLE
 FROM DEPTMENT;
 
--- ÀüÃ¼ »ç¿øµéÀÇ »ç¹ø, »ç¿ø¸í, Á÷±ÞÄÚµå, Á÷±Þ¸íÀ» Á¶È¸
+-- ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½, ï¿½ï¿½ï¿½Þ¸ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
 SELECT JOB_CODE, JOB_NAME
 FROM JOB;
 /*
-    1. µî°¡ Á¶ÀÎ (EQUAL JOIN / ³»ºÎÁ¶ÀÎ (INNER JOIN)
-        : ¿¬°á½ÃÅ°´Â ÄÃ·³ÀÇ °ªÀÌ ÀÏÄ¡ÇÏ´Â Çàµé¸¸ Á¶È¸(=> ÀÏÄ¡ÇÏÁö ¾Ê´Â ÇàÀº Á¦¿Ü)
+    1. ï¿½î°¡ ï¿½ï¿½ï¿½ï¿½ (EQUAL JOIN / ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (INNER JOIN)
+        : ï¿½ï¿½ï¿½ï¿½ï¿½Å°ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½Ï´ï¿½ ï¿½ï¿½é¸¸ ï¿½ï¿½È¸(=> ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 */
 
--- ¿À¶óÅ¬ Àü¿ë ±¸¹®: µî°¡Á¶ÀÎ(EQUAL JOIN)
---  FROMÀý¿¡ Á¶È¸ÇÏ°íÀÚÇÏ´Â Å×ÀÌºíµéÀ» ³ª¿­ (, »ç¿ë..)
---  WHEREÀý¿¡ ¿¬°á°í¸®¿ªÇÒÀ» ÇÏ´Â ÄÃ·³¿¡ ´ëÇÑ Á¶°ÇÀ» Á¦½Ã
+-- ï¿½ï¿½ï¿½ï¿½Å¬ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: ï¿½î°¡ï¿½ï¿½ï¿½ï¿½(EQUAL JOIN)
+--  FROMï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ï¿½Ï°ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (, ï¿½ï¿½ï¿½..)
+--  WHEREï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
---  1) ¿¬°áÇÒ µÎ ÄÃ·³¸íÀÌ ´Ù¸¥ °æ¿ì (EMPLOYEE: DEPT_CODE / DEPARTMENT: DEPT_ID)
---  »ç¿ø, »ç¿ø¸í, ºÎ¼­ÄÚµå, ºÎ¼­¸í Á¶È¸ (ºÎ¼­ ¹èÄ¡¸¦ ¹ÞÁö ¸øÇÑ Á÷¿øÀº Á¶È¸µÇÁö ¾ÊÀ½
+--  1) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ (EMPLOYEE: DEPT_CODE / DEPARTMENT: DEPT_ID)
+--  ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Î¼ï¿½ï¿½Úµï¿½, ï¿½Î¼ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ (ï¿½Î¼ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 SELECT EMP_ID, EMP_NAME, DEPT_CODE, DEPT_TITLE
 FROM EMPLOYEE, DEPARTMENT
 WHERE DEPT_CODE = DEPT_ID;
--- => null, D3, D4, D7 µ¥ÀÌÅÍ´Â Á¶È¸µÇÁö ¾ÊÀº °ÍÀ» È®ÀÎÇÒ ¼ö ÀÖÀ½. => ÀÏÄ¡ÇÏ´Â °ªÀÌ ¾ø±â ¶§¹®¿¡
+-- => null, D3, D4, D7 ï¿½ï¿½ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. => ï¿½ï¿½Ä¡ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
---  2) ¿¬°áÇÑ µÎ ÄÃ·³¸íÀÌ °°Àº °æ¿ì (EMPLOYEE: JOB_CODE / JOB: JOB_CODE)
---  »ç¹ø, »ç¿ø¸í, Á÷±ÞÄÚµå, Á÷±Þ¸í Á¶È¸
+--  2) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ (EMPLOYEE: JOB_CODE / JOB: JOB_CODE)
+--  ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½, ï¿½ï¿½ï¿½Þ¸ï¿½ ï¿½ï¿½È¸
 SELECT EMP_ID, EMP_NAME, EMPLOYEE.JOB_CODE, JOB_NAME
 FROM EMPLOYEE, JOB
 WHERE EMPLOYEE.JOB_CODE = JOB.JOB_CODE;
--- * º°ÄªÀ» »ç¿ë
+-- * ï¿½ï¿½Äªï¿½ï¿½ ï¿½ï¿½ï¿½
 SELECT EMP_ID, EMP_NAME, E.JOB_CODE, JOB_NAME
 FROM EMPLOYEE E, JOB J
 WHERE E.JOB_CODE = J.JOB_CODE;
 
 -- =============================
--- ANSI ±¸¹®
--- FROMÀý¿¡ ±âÁØÀÌ µÇ´Â Å×ÀÌºí ÇÏ³ª ±â¼ú
--- JOINÀý¿¡ Á¶ÀÎÇÏ°íÀÚÇÏ´Â Å×ÀÌºí ±â¼ú + ¿¬°á°í¸®¿ªÇÒ ÄÃ·³¿¡ ´ëÇÑ ºÎºÐ ±â¼ú
+-- ANSI ï¿½ï¿½ï¿½ï¿½
+-- FROMï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½Ï³ï¿½ ï¿½ï¿½ï¿½
+-- JOINï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ + ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ ï¿½ï¿½ï¿½
 -- * JOIN USING / JOIN ON
 
--- 1) ¿¬°á °í¸® ¿ªÇÒÀ» ÇÏ´Â "ÄÃ·³¸í ´Ù¸¥ °æ¿ì" => JOIN ON ±¸¹®À» »ç¿ë
--- »ç¹ø, »ç¿ø¸í, ºÎ¼­ÄÚµå, ºÎ¼­¸í Á¶È¸
+-- 1) ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ "ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½" => JOIN ON ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+-- ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Î¼ï¿½ï¿½Úµï¿½, ï¿½Î¼ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
 SELECT EMP_ID, EMP_NAME, DEPT_CODE, DEPT_TITLE
 FROM EMPLOYEE
 JOIN DEPARTMENT ON (DEPT_CODE = DEPT_ID);
 
--- 2) ¿¬°á °í¸® ¿ªÇÒÀ» ÇÏ´Â "ÄÃ·³¸í °°Àº °æ¿ì" => JOIN USING ±¸¹® (JOIN ONµµ °¡´É)
+-- 2) ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ "ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½" => JOIN USING ï¿½ï¿½ï¿½ï¿½ (JOIN ONï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 SELECT EMP_ID, EMP_NAME, E.JOB_CODE, JOB_NAME
 FROM EMPLOYEE
-JOIN JOB USING (JOB_CODE);      -- JOIN USING: ¿¬°áÇÏ´Â ÄÃ·³¸í °°À» ‹š¸¸ »ç¿ë°¡´É.
+JOIN JOB USING (JOB_CODE);      -- JOIN USING: ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ë°¡ï¿½ï¿½.
 
--- Ãß°¡ÀûÀÎ Á¶°Ç Á¦½Ãµµ °¡´É.
--- Á÷±ÞÀÌ "´ë¸®"ÀÎ Á÷¿øµé Á¶È¸
+-- ï¿½ß°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½.
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ "ï¿½ë¸®"ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
 --  ANSI rnans
 SELECT EMP_ID, EMP_NAME, JOB_CODE, JOB_NAME
 FROM EMPLOYEE
 JOIN JOB USING (JOB_CODE)
-WHERE JOB_NAME = '´ë¸®';
+WHERE JOB_NAME = 'ï¿½ë¸®';
 
--- Oracle Àü¿ë ±¸¹®
+-- Oracle ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 SELECT EMP_ID, EMP_NAME, E.JOB_CODE, JOB_NAME
 FROM EMPLOYEE E, JOB J
-WHERE E.JOB_CODE = J.JOB_CODE AND JOB_NAME = '´ë¸®';
+WHERE E.JOB_CODE = J.JOB_CODE AND JOB_NAME = 'ï¿½ë¸®';
 --------------------------------------------------------------------------------
--- ¹®Á¦ -------------------------------------------------------------------------
---  (Oracle Àü¿ë ±¸¹®, ANSI ±¸¹®)
--- 1) ºÎ¼­°¡ "ÀÎ»ç°ü¸®ºÎ"ÀÎ  »ç¿øµéÀÇ »ç¹ø, ÀÌ¸§, º¸³Ê½º Á¶È¸
---   * Oracle Àü¿ë ±¸¹®
---   ºÎ¼­ Á¤º¸ (DEPARTMENT), Á÷¿ø Á¤º¸ (EMPLOYEE)
-SELECT EMP_NO "»ç¹ø", EMP_NAME "ÀÌ¸§", BONUS "º¸³Ê½º"
+-- ï¿½ï¿½ï¿½ï¿½ -------------------------------------------------------------------------
+--  (Oracle ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ANSI ï¿½ï¿½ï¿½ï¿½)
+-- 1) ï¿½Î¼ï¿½ï¿½ï¿½ "ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"ï¿½ï¿½  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, ï¿½Ì¸ï¿½, ï¿½ï¿½ï¿½Ê½ï¿½ ï¿½ï¿½È¸
+--   * Oracle ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+--   ï¿½Î¼ï¿½ ï¿½ï¿½ï¿½ï¿½ (DEPARTMENT), ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (EMPLOYEE)
+SELECT EMP_NO "ï¿½ï¿½ï¿½", EMP_NAME "ï¿½Ì¸ï¿½", BONUS "ï¿½ï¿½ï¿½Ê½ï¿½"
 FROM EMPLOYEE, DEPARTMENT
-WHERE DEPT_CODE  = DEPT_ID              -- ¿¬°á °í¸® ¿¬ÇÒ ÄÃ·³ 
-        AND DEPT_TITLE = 'ÀÎ»ç°ü¸®ºÎ';   -- Ãß°¡ Á¶°Ç (ÀÎ»ç°ü¸®ºÎ)
+WHERE DEPT_CODE  = DEPT_ID              -- ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ 
+        AND DEPT_TITLE = 'ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';   -- ï¿½ß°ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
         
---   * ANSI ±¸¹® : ÄÃ·³¸íÀÌ ´Ù¸¥ °æ¿ì => JOIN ~ ON »ç¿ë
-SELECT EMP_NO "»ç¹ø", EMP_NAME "ÀÌ¸§", BONUS "º¸³Ê½º"
+--   * ANSI ï¿½ï¿½ï¿½ï¿½ : ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ => JOIN ~ ON ï¿½ï¿½ï¿½
+SELECT EMP_NO "ï¿½ï¿½ï¿½", EMP_NAME "ï¿½Ì¸ï¿½", BONUS "ï¿½ï¿½ï¿½Ê½ï¿½"
 FROM EMPLOYEE JOIN DEPARTMENT ON (DEPT_CODE = DEPT_ID)
-WHERE DEPT_TITLE = 'ÀÎ»ç°ü¸®ºÎ';
+WHERE DEPT_TITLE = 'ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
 
--- 2) ºÎ¼­ Å×ÀÌºí(DEPARTMENT)°ú LOCATIONÅ×ÀÌºíÀ» Âü°íÇÏ¿© ÀüÃ¼ ºÎ¼­ÀÇ ºÎ¼­ÄÚµå, ºÎ¼­¸í, Áö¿ªÄÚµå, Áö¿ª¸í Á¶È¸
---   * Oracle Àü¿ë ±¸¹®
-SELECT DEPT_ID "ºÎ¼­ÄÚµå", DEPT_TITLE "ºÎ¼­¸í", LOCAL_CODE "Áö¿ªÄÚµå", LOCAL_NAME "Áö¿ª¸í"
+-- 2) ï¿½Î¼ï¿½ ï¿½ï¿½ï¿½Ìºï¿½(DEPARTMENT)ï¿½ï¿½ LOCATIONï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½Ã¼ ï¿½Î¼ï¿½ï¿½ï¿½ ï¿½Î¼ï¿½ï¿½Úµï¿½, ï¿½Î¼ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
+--   * Oracle ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+SELECT DEPT_ID "ï¿½Î¼ï¿½ï¿½Úµï¿½", DEPT_TITLE "ï¿½Î¼ï¿½ï¿½ï¿½", LOCAL_CODE "ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½", LOCAL_NAME "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"
 FROM DEPARTMENT, LOCATION
 WHERE LOCATION_ID = LOCAL_CODE;
 
---   * ANSI ±¸¹® : ÄÃ·³¸í¸¸ ´Ù¸¥ °æ¿ì ( JOIN ~ ON )
-SELECT DEPT_ID "ºÎ¼­ÄÚµå", DEPT_TITLE "ºÎ¼­¸í", LOCAL_CODE "Áö¿ªÄÚµå", LOCAL_NAME "Áö¿ª¸í"
-FROM DEPARTMENT     -- ±âÁØÀÌ µÇ´Â Å×ÀÌºí: ºÎ¼­(DEPARTMENT)
+--   * ANSI ï¿½ï¿½ï¿½ï¿½ : ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ ( JOIN ~ ON )
+SELECT DEPT_ID "ï¿½Î¼ï¿½ï¿½Úµï¿½", DEPT_TITLE "ï¿½Î¼ï¿½ï¿½ï¿½", LOCAL_CODE "ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½", LOCAL_NAME "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"
+FROM DEPARTMENT     -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½Ìºï¿½: ï¿½Î¼ï¿½(DEPARTMENT)
 JOIN LOCATION ON(LOCATION_ID = LOCAL_CODE);
 
--- 3)º¸³Ê½º¸¦ ¹ÞÀº »ç¿øµéÀÇ »ç¹ø, »ç¿ø¸í, º¸³Ê½º, ºÎ¼­¸í Á¶È¸
---   * Oracle Àü¿ë ±¸¹®
-SELECT EMP_ID "»ç¹ø", EMP_NAME "»ç¿ø¸í", BONUS "º¸³Ê½º", DEPT_TITLE "ºÎ¼­¸í"
+-- 3)ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½Ê½ï¿½, ï¿½Î¼ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
+--   * Oracle ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+SELECT EMP_ID "ï¿½ï¿½ï¿½", EMP_NAME "ï¿½ï¿½ï¿½ï¿½ï¿½", BONUS "ï¿½ï¿½ï¿½Ê½ï¿½", DEPT_TITLE "ï¿½Î¼ï¿½ï¿½ï¿½"
 FROM EMPLOYEE, DEPARTMENT
 WHERE DEPT_CODE = DEPT_ID 
         AND BONUS IS NOT NULL;
---   * ANSI ±¸¹® : JOIN ~ ON
-SELECT EMP_ID "»ç¹ø", EMP_NAME "»ç¿ø¸í", BONUS "º¸³Ê½º", DEPT_TITLE "ºÎ¼­¸í"
+--   * ANSI ï¿½ï¿½ï¿½ï¿½ : JOIN ~ ON
+SELECT EMP_ID "ï¿½ï¿½ï¿½", EMP_NAME "ï¿½ï¿½ï¿½ï¿½ï¿½", BONUS "ï¿½ï¿½ï¿½Ê½ï¿½", DEPT_TITLE "ï¿½Î¼ï¿½ï¿½ï¿½"
 FROM EMPLOYEE JOIN DEPARTMENT ON (DEPT_CODE = DEPT_ID)
 WHERE BONUS IS NOT NULL;
 
--- 4) ºÎ¼­°¡ "ÃÑ¹«ºÎ"°¡ ¾Æ´Ñ »ç¿øµéÀÇ »ç¿ø¸í, ±Þ¿© Á¶È¸
---   * Oracle Àü¿ë ±¸¹®
-SELECT EMP_NAME "»ç¿ø¸í", SALARY "±Þ¿©" --, DEPT_TITLE "ºÎ¼­¸í" -- È®ÀÎ¿ë
+-- 4) ï¿½Î¼ï¿½ï¿½ï¿½ "ï¿½Ñ¹ï¿½ï¿½ï¿½"ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Þ¿ï¿½ ï¿½ï¿½È¸
+--   * Oracle ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+SELECT EMP_NAME "ï¿½ï¿½ï¿½ï¿½ï¿½", SALARY "ï¿½Þ¿ï¿½" --, DEPT_TITLE "ï¿½Î¼ï¿½ï¿½ï¿½" -- È®ï¿½Î¿ï¿½
 FROM EMPLOYEE, DEPARTMENT
-WHERE DEPT_CODE = DEPT_ID   -- µÎ Å×ÀÌºí ¿¬°á 
-        AND DEPT_TITLE != 'ÃÑ¹«ºÎ'; -- != | ^= | <> : ´Ù¸§À» Ã¼Å©ÇÒ ¶§ »ç¿ëÇÏ´Â ¿¬»êÀÚ 
+WHERE DEPT_CODE = DEPT_ID   -- ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ 
+        AND DEPT_TITLE != 'ï¿½Ñ¹ï¿½ï¿½ï¿½'; -- != | ^= | <> : ï¿½Ù¸ï¿½ï¿½ï¿½ Ã¼Å©ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 
---   * ANSI ±¸¹®
-SELECT EMP_NAME "»ç¿ø¸í", SALARY "±Þ¿©", DEPT_TITLE "ºÎ¼­¸í"
+--   * ANSI ï¿½ï¿½ï¿½ï¿½
+SELECT EMP_NAME "ï¿½ï¿½ï¿½ï¿½ï¿½", SALARY "ï¿½Þ¿ï¿½", DEPT_TITLE "ï¿½Î¼ï¿½ï¿½ï¿½"
 FROM EMPLOYEE JOIN DEPARTMENT ON (DEPT_CODE = DEPT_ID)
-WHERE DEPT_TITLE != 'ÃÑ¹«ºÎ'; 
+WHERE DEPT_TITLE != 'ï¿½Ñ¹ï¿½ï¿½ï¿½'; 
 --------------------------------------------------------------------------------
 /*
-    2. Æ÷°ý Á¶ÀÎ / ¿ÜºÎ Á¶ÀÎ (OUTER JOIN)
-    : µÎ Å×ÀÌºíÀ» JOINÇÒ ¶§ ÀÏÄ¡ÇÏÁö ¾Ê´Â Çàµµ Æ÷ÇÔÇÏ¿© Á¶È¸
-      ´Ü, LEFT | RIGHT¸¦ ÁöÁ¤ÇØÁà¾ß ÇÔ. (±âÁØÀÌ µÇ´Â Å×ÀÌºíÀ» ÁöÁ¤.)
+    2. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ / ï¿½Üºï¿½ ï¿½ï¿½ï¿½ï¿½ (OUTER JOIN)
+    : ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ JOINï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ ï¿½àµµ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½È¸
+      ï¿½ï¿½, LEFT | RIGHTï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½. (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.)
 */
--- µî°¡(³»ºÎ) Á¶ÀÎÀ¸·Î Á¶È¸.
---  »ç¿ø¸í, ºÎ¼­¸í, ±Þ¿©, ¿¬ºÀ Á¶È¸ (21¸í Á¶È¸) => 2¸íÀÌ Á¦¿ÜµÊ! (ºÎ¼­¹èÄ¡¸¦ ¸ø¹ÞÀº Á÷¿ø)
-SELECT EMP_NAME "»ç¿ø¸í", DEPT_TITLE "ºÎ¼­¸í", SALARY "±Þ¿©", SALART * 12 "¿¬ºÀ"
+-- ï¿½î°¡(ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸.
+--  ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Î¼ï¿½ï¿½ï¿½, ï¿½Þ¿ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ (21ï¿½ï¿½ ï¿½ï¿½È¸) => 2ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Üµï¿½! (ï¿½Î¼ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+SELECT EMP_NAME "ï¿½ï¿½ï¿½ï¿½ï¿½", DEPT_TITLE "ï¿½Î¼ï¿½ï¿½ï¿½", SALARY "ï¿½Þ¿ï¿½", SALART * 12 "ï¿½ï¿½ï¿½ï¿½"
 FROM EMPLOYEE, DEPARTMENT
 WHERE DEPT_CODE = DEPT_ID;
 
--- [1] LEFT [OUTER] JOIN : µÎ Å×ÀÌºí Áß ¿ÞÆí¿¡ ÀÖ´Â Å×ÀÌºíÀ» ±âÁØÀ¸·Î JOIN
--- ¿À¶óÅ¬ ±¸¹®
--- ºÎ¼­¹èÄ¡¸¦ ¹ÞÁö ¸øÇÑ Á÷¿øµµ Á¶È¸ÇÒ ¶§
-SELECT EMP_NAME "»ç¿ø¸í", DEPT_TITLE "ºÎ¼­¸í", SALARY "±Þ¿©", SALARY * 12 "¿¬ºÀ"
+-- [1] LEFT [OUTER] JOIN : ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ JOIN
+-- ï¿½ï¿½ï¿½ï¿½Å¬ ï¿½ï¿½ï¿½ï¿½
+-- ï¿½Î¼ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½
+SELECT EMP_NAME "ï¿½ï¿½ï¿½ï¿½ï¿½", DEPT_TITLE "ï¿½Î¼ï¿½ï¿½ï¿½", SALARY "ï¿½Þ¿ï¿½", SALARY * 12 "ï¿½ï¿½ï¿½ï¿½"
 FROM EMPLOYEE, DEPARTMENT
-WHERE DEPT_CODE = DEPT_ID(+);   -- µ¿ÀÏÇÑ °ªÀÌ ¾øÀ» ¶§ ¿ÞÂÊ(EMPLOYEE)¿¡ ÀÖ´Â µ¥ÀÌÅÍ¸¦ Æ÷ÇÔÇÏ¿© Á¶È¸ÇÔ
+WHERE DEPT_CODE = DEPT_ID(+);   -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(EMPLOYEE)ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½È¸ï¿½ï¿½
 
--- ANSI ±¸¹®
-SELECT EMP_NAME "»ç¿ø¸í", DEPT_TITLE "ºÎ¼­¸í", SALARY "±Þ¿©", SALARY * 12 "¿¬ºÀ"
+-- ANSI ï¿½ï¿½ï¿½ï¿½
+SELECT EMP_NAME "ï¿½ï¿½ï¿½ï¿½ï¿½", DEPT_TITLE "ï¿½Î¼ï¿½ï¿½ï¿½", SALARY "ï¿½Þ¿ï¿½", SALARY * 12 "ï¿½ï¿½ï¿½ï¿½"
 FROM EMPLOYEE LEFT JOIN DEPARTMENT ON (DEPT_CODE = DEPT_ID);
 
--- [2] RIGHT [OUTER] JOIN : µÎ Å×ÀÌºí Áß ¿À¸¥Æí¿¡ ÀÖ´Â Å×ÀÌºíÀ» ±âÁØÀ¸·Î JOIN
+-- [2] RIGHT [OUTER] JOIN : ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ JOIN
 SELECT COUNT(*) FROM EMPLOYEE;
--- ¿À¶óÅ¬ ±¸¹®
---  ºÎ¼­ ³»¿¡ Á÷¿øÀÌ ¾ø´Â °æ¿ìµµ Á¶È¸ÇÒ ¶§
-SELECT EMP_NAME "»ç¿ø¸í", DEPT_TITLE "ºÎ¼­¸í", SALARY "±Þ¿©", SALARY * 12 "¿¬ºÀ"
+-- ï¿½ï¿½ï¿½ï¿½Å¬ ï¿½ï¿½ï¿½ï¿½
+--  ï¿½Î¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ìµµ ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½
+SELECT EMP_NAME "ï¿½ï¿½ï¿½ï¿½ï¿½", DEPT_TITLE "ï¿½Î¼ï¿½ï¿½ï¿½", SALARY "ï¿½Þ¿ï¿½", SALARY * 12 "ï¿½ï¿½ï¿½ï¿½"
 FROM EMPLOYEE, DEPARTMENT
 WHERE DEPT_CODE(+) = DEPT_ID;
 
--- ANSI ±¸¹®
-SELECT EMP_NAME "»ç¿ø¸í", DEPT_TITLE "ºÎ¼­¸í", SALARY "±Þ¿©", SALARY * 12 "¿¬ºÀ"
+-- ANSI ï¿½ï¿½ï¿½ï¿½
+SELECT EMP_NAME "ï¿½ï¿½ï¿½ï¿½ï¿½", DEPT_TITLE "ï¿½Î¼ï¿½ï¿½ï¿½", SALARY "ï¿½Þ¿ï¿½", SALARY * 12 "ï¿½ï¿½ï¿½ï¿½"
 FROM EMPLOYEE RIGHT JOIN DEPARTMENT ON (DEPT_CODE = DEPT_ID);
 
--- [3] FULL [OUTER] JOIN : µÎ Å×ÀÌºíÀÌ °¡Áø ¸ðµç ÇàÀ» Á¶È¸ (¿À¶óÅ¬ Àü¿ë ±¸¹®X ANSI ±¸¹®¸¸ °¡´É!)
--- ANSI ±¸¹®
-SELECT EMP_NAME "»ç¿ø¸í", DEPT_TITLE "ºÎ¼­¸í", SALARY "±Þ¿©", SALARY * 12 "¿¬ºÀ"
+-- [3] FULL [OUTER] JOIN : ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ (ï¿½ï¿½ï¿½ï¿½Å¬ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½X ANSI ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!)
+-- ANSI ï¿½ï¿½ï¿½ï¿½
+SELECT EMP_NAME "ï¿½ï¿½ï¿½ï¿½ï¿½", DEPT_TITLE "ï¿½Î¼ï¿½ï¿½ï¿½", SALARY "ï¿½Þ¿ï¿½", SALARY * 12 "ï¿½ï¿½ï¿½ï¿½"
 FROM EMPLOYEE FULL JOIN DEPARTMENT ON (DEPT_CODE = DEPT_ID);
 --------------------------------------------------------------------------------
 /*
-    3. ºñµî°¡ Á¶ÀÎ (NON EQUAL JOIN)
-        : ¿¬°á °í¸® ¿ªÇÒ ÇÏ´Â ÄÃ·³¿¡ ´ëÇÑ Á¶°Ç½Ä¿¡ '='¸¦ »ç¿ëÇÏÁö ¾ÊÀ½.
-            ANSI ±¸¹®¿¡¼­´Â ON¸¸ »ç¿ë.
+    3. ï¿½ï¿½î°¡ ï¿½ï¿½ï¿½ï¿½ (NON EQUAL JOIN)
+        : ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ç½Ä¿ï¿½ '='ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
+            ANSI ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ONï¿½ï¿½ ï¿½ï¿½ï¿½.
 */
--- »ç¿ø¸í, ±Þ¿©, ±Þ¿©·¹º§ Á¶È¸
-SELECT * FROM EMPLOYEE;          -- ±Þ¿©
-SELECT * FROM SAL_GRADE;        -- ±Þ¿©·¹º§
--- ¿À¶óÅ¬ ±¸¹®
-SELECT EMP_NAME "»ç¿ø¸í", SALARY "±Þ¿©", SAL_LEVEL "±Þ¿©·¹º§", MIN_SAL, MAX_SAL
+-- ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Þ¿ï¿½, ï¿½Þ¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
+SELECT * FROM EMPLOYEE;          -- ï¿½Þ¿ï¿½
+SELECT * FROM SAL_GRADE;        -- ï¿½Þ¿ï¿½ï¿½ï¿½ï¿½ï¿½
+-- ï¿½ï¿½ï¿½ï¿½Å¬ ï¿½ï¿½ï¿½ï¿½
+SELECT EMP_NAME "ï¿½ï¿½ï¿½ï¿½ï¿½", SALARY "ï¿½Þ¿ï¿½", SAL_LEVEL "ï¿½Þ¿ï¿½ï¿½ï¿½ï¿½ï¿½", MIN_SAL, MAX_SAL
 FROM EMPLOYEE, SAL_GRADE
 -- WHERE SALARY >= MIN_SAL AND SALARY <= MAX_SAL;
 WHERE SALARY BETWEEN MIN_SAL AND MAX_SAL;
 
--- ANSI ±¸¹® : JOIN ~ ON »ç¿ë
-SELECT EMP_NAME "»ç¿ø¸í", SALARY "±Þ¿©", SAL_LEVEL "±Þ¿©·¹º§"
+-- ANSI ï¿½ï¿½ï¿½ï¿½ : JOIN ~ ON ï¿½ï¿½ï¿½
+SELECT EMP_NAME "ï¿½ï¿½ï¿½ï¿½ï¿½", SALARY "ï¿½Þ¿ï¿½", SAL_LEVEL "ï¿½Þ¿ï¿½ï¿½ï¿½ï¿½ï¿½"
 FROM EMPLOYEE JOIN SAL_GRADE -- ON (SALARY >= MIN_SAL AND SALARY <= MAX_SAL);
 ON (SALARY BETWEEN MIN_SAL AND MAX_SAL);
--- Á÷¿øÀÇ ±Þ¿© Á¤º¸°¡ ±Þ¿© ·¹º§ ¹üÀ§¿¡ ¼ÓÇÏ´Â Áö¸¦ Á¶°ÇÀ¸·Î Á¦½Ã.
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 --------------------------------------------------------------------------------
 /*
-    4. ÀÚÃ¼ Á¶ÀÎ (SELE JOIN)
-      : °°Àº Å×ÀÌºíÀ» ´Ù½Ã ÇÑ ¹ø Á¶ÀÎÇÏ´Â °æ¿ì
+    4. ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ (SELE JOIN)
+      : ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½
 */
--- ÀüÃ¼ »ç¿øÀÇ »ç¹ø, »ç¿ø¸í, ºÎ¼­ÄÚµå
---             »ç¼ö »ç¹ø, »ç¼ö »ç¿ø¸í, »ç¼ö ºÎ¼­ÄÚµå Á¶È¸
+-- ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Î¼ï¿½ï¿½Úµï¿½
+--             ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½Î¼ï¿½ï¿½Úµï¿½ ï¿½ï¿½È¸
 SELECT E.EMP_ID, E.EMP_NAME, E.DEPT_CODE,
             E.MANAGER_ID, M.EMP_NAME, M.DEPT_CODE
-FROM EMPLOYEE E, EMPLOYEE M         -- E : Á÷¿ø Á¤º¸ Á¶È¸ÇÏ±â À§ÇÑ EMPLOYEE
-                                    -- M : »ç¼öÁ÷¿ø Á¤º¸ Á¶È¸ÇÏ±â À§ÇÑ EMPLOYEE
+FROM EMPLOYEE E, EMPLOYEE M         -- E : ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ EMPLOYEE
+                                    -- M : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ EMPLOYEE
 WHERE E.MANAGER_ID = M.EMP_ID;
--- WHERE E.MANAGER_ID = M.EMP_ID(+);  -- »ç¼ö°¡ ¾ø´Â Á÷¿øµµ Á¶È¸ÇÑ´Ù¸é, OUTER JOIN Àû¿ë
---  ANSI ±¸¹®
+-- WHERE E.MANAGER_ID = M.EMP_ID(+);  -- ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ï¿½Ñ´Ù¸ï¿½, OUTER JOIN ï¿½ï¿½ï¿½ï¿½
+--  ANSI ï¿½ï¿½ï¿½ï¿½
 SELECT E.EMP_ID, E.EMP_NAME, E.DEPT_CODE,
             E.MANAGER_ID, M.EMP_NAME, M.DEPT_CODE
 FROM EMPLOYEE E JOIN EMPLOYEE M ON (E.MANAGER_ID = M.EMP_ID);
--- LEFT JOIN EMPLOYEE M ON (E.MANAGER_ID = M.EMP_ID);   -- »ç¼ö°¡ ¾ø´Â Á÷¿ø Á¶È¸ ½Ã
+-- LEFT JOIN EMPLOYEE M ON (E.MANAGER_ID = M.EMP_ID);   -- ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ ï¿½ï¿½
 --------------------------------------------------------------------------------
 /*
-    5. ´ÙÁß JOIN : 2°³ ÀÌ»óÀÇ Å×ÀÌºíÀ» JOIN.
+    5. ï¿½ï¿½ï¿½ï¿½ JOIN : 2ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ JOIN.
 */
--- »ç¹ø, »ç¿ø¸í, ºÎ¼­¸í, Á÷±Þ¸í Á¶È¸
--- Oracle ±¸¹®
+-- ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Î¼ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½Þ¸ï¿½ ï¿½ï¿½È¸
+-- Oracle ï¿½ï¿½ï¿½ï¿½
 SELECT E.EMP_ID, E.EMP_NAME, D.DEPT_TITLE, J.JOB_NAME
 FROM EMPLOYEE E, DEPARTMENT D, JOB J
-WHERE E.DEPT_CODE = D.DEPT_ID            -- EMPLOYEE Å×ÀÌºí°ú DEPARTMENT Å×ÀÌºí ¿¬°á
-        AND E.JOB_CODE = J.JOB_CODE;        -- EMPLOYEE Å×ÀÌºí°ú JOB Å×ÀÌºí ¿¬°á
+WHERE E.DEPT_CODE = D.DEPT_ID            -- EMPLOYEE ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ DEPARTMENT ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½
+        AND E.JOB_CODE = J.JOB_CODE;        -- EMPLOYEE ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ JOB ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½
         
--- ANSI ±¸¹®
+-- ANSI ï¿½ï¿½ï¿½ï¿½
 SELECT EMP_ID, EMP_NAME, DEPT_TITLE, JOB_NAME
 FROM EMPLOYEE
 JOIN DEPARTMENT ON (DEPT_CODE = DEPT_ID)
 JOIN JOB USING(JOB_CODE);
 
--- »ç¹ø, »ç¿ø¸í, ºÎ¼­¸í, Áö¿ª¸í Á¶È¸ : Á÷¿ø(EMPLOYEE), ºÎ¼­(DEPARTENT), Áö¿ª(LOCATION)
---  ORACLE ±¸¹®
-SELECT EMP_ID "»ç¹ø", EMP_NAME "»ç¿ø¸í", DEPT_TITLE "ºÎ¼­¸í", LOCAL_NAME "Áö¿ª¸í"
+-- ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Î¼ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ : ï¿½ï¿½ï¿½ï¿½(EMPLOYEE), ï¿½Î¼ï¿½(DEPARTENT), ï¿½ï¿½ï¿½ï¿½(LOCATION)
+--  ORACLE ï¿½ï¿½ï¿½ï¿½
+SELECT EMP_ID "ï¿½ï¿½ï¿½", EMP_NAME "ï¿½ï¿½ï¿½ï¿½ï¿½", DEPT_TITLE "ï¿½Î¼ï¿½ï¿½ï¿½", LOCAL_NAME "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"
 FROM EMPLOYEE, DEPARTMENT, LOCATION
 WHERE DEPT_CODE = DEPT_ID AND LOCATION_ID = LOCAL_CODE;
 
---  ANSI ±¸¹®
-SELECT EMP_ID "»ç¹ø", EMP_NAME "»ç¿ø¸í", DEPT_TITLE "ºÎ¼­¸í", LOCAL_NAME "Áö¿ª¸í"
+--  ANSI ï¿½ï¿½ï¿½ï¿½
+SELECT EMP_ID "ï¿½ï¿½ï¿½", EMP_NAME "ï¿½ï¿½ï¿½ï¿½ï¿½", DEPT_TITLE "ï¿½Î¼ï¿½ï¿½ï¿½", LOCAL_NAME "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"
 FROM EMPLOYEE
 JOIN DEPARTMENT ON (DEPT_CODE = DEPT_ID)
 JOIN LOCATION ON (LOCATION_ID = LOCAL_CODE);
 --------------------------------------------------------------------------------
------------------------------- ½Ç½À ¹®Á¦ ----------------------------------------
--- 1. »ç¹ø, »ç¿ø¸í, ºÎ¼­¸í, Áö¿ª¸í, ±¹°¡¸í Á¶È¸
+------------------------------ ï¿½Ç½ï¿½ ï¿½ï¿½ï¿½ï¿½ ----------------------------------------
+-- 1. ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Î¼ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
 --      (EMPLOYEE, DEPARTMENT, LOCATION, NATIONAL)
---      ORACLE ±¸¹®
-SELECT EMP_ID "»ç¹ø", EMP_NAME "»ç¿ø¸í", DEPT_TITLE "ºÎ¼­¸í", LOCAL_NAME "Áö¿ª¸í", 
-            NATIONAL_NAME "±¹°¡¸í"
+--      ORACLE ï¿½ï¿½ï¿½ï¿½
+SELECT EMP_ID "ï¿½ï¿½ï¿½", EMP_NAME "ï¿½ï¿½ï¿½ï¿½ï¿½", DEPT_TITLE "ï¿½Î¼ï¿½ï¿½ï¿½", LOCAL_NAME "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", 
+            NATIONAL_NAME "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"
 FROM EMPLOYEE, DEPARTMENT, LOCATION L, NATIONAL N
-WHERE DEPT_CODE = DEPT_ID   -- EMPLOYEE - DEPARTMENT ¿¬°á 
-        AND LOCATION_ID = LOCAL_CODE    -- DEPARTMENT - LOCATION ¿¬°á
-            AND L.NATIONAL_CODE = N.NATIONAL_CODE;      -- LOCATION - NATIONAL ¿¬°á
+WHERE DEPT_CODE = DEPT_ID   -- EMPLOYEE - DEPARTMENT ï¿½ï¿½ï¿½ï¿½ 
+        AND LOCATION_ID = LOCAL_CODE    -- DEPARTMENT - LOCATION ï¿½ï¿½ï¿½ï¿½
+            AND L.NATIONAL_CODE = N.NATIONAL_CODE;      -- LOCATION - NATIONAL ï¿½ï¿½ï¿½ï¿½
 
--- ANSI ±¸¹®
-SELECT EMP_ID "»ç¹ø", EMP_NAME "»ç¿ø¸í", DEPT_TITLE "ºÎ¼­¸í", NATIONAL_NAME "Áö¿ª¸í",
-            NATIONAL_NAME "±¹°¡¸í"
+-- ANSI ï¿½ï¿½ï¿½ï¿½
+SELECT EMP_ID "ï¿½ï¿½ï¿½", EMP_NAME "ï¿½ï¿½ï¿½ï¿½ï¿½", DEPT_TITLE "ï¿½Î¼ï¿½ï¿½ï¿½", NATIONAL_NAME "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½",
+            NATIONAL_NAME "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"
 FROM EMPLOYEE
-    JOIN DEPARTMENT ON (DEPT_CODE = DEPT_ID)    -- EMPLOYEE - DEPARTMENT ¿¬°á
-    JOIN LOCATION ON (LOCATION_ID = LOCAL_CODE) -- DEPARTMENT - LOCATION ¿¬°á
-    JOIN NATIONAL USING(NATIONAL_CODE);         -- LOCATION - NATIONAL ¿¬°á
+    JOIN DEPARTMENT ON (DEPT_CODE = DEPT_ID)    -- EMPLOYEE - DEPARTMENT ï¿½ï¿½ï¿½ï¿½
+    JOIN LOCATION ON (LOCATION_ID = LOCAL_CODE) -- DEPARTMENT - LOCATION ï¿½ï¿½ï¿½ï¿½
+    JOIN NATIONAL USING(NATIONAL_CODE);         -- LOCATION - NATIONAL ï¿½ï¿½ï¿½ï¿½
 
--- 2. »ç¹ø, »ç¿ø¸í, ºÎ¼­¸í, Á÷±Þ¸í, Áö¿ª¸í, ±¹°¡¸í, ±Þ¿© µî±Þ Á¶È¸
+-- 2. ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Î¼ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½Þ¸ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Þ¿ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
 --    (EMPLOYEE, DEPARTMENT, JOB, LOCATION, NATIONAL, SAL_GRADE)
---  ORACLE ±¸¹®
-SELECT EMP_ID "»ç¹ø", EMP_NAME "»ç¿ø¸í", DEPT_TITLE "ºÎ¼­¸í", JOB_NAME "Á÷±Þ¸í",
-        LOCAL_NAME "Áö¿ª¸í", NATIONAL_NAME "±¹°¡¸í", SAL_LEVEL "±Þ¿© µî±Þ"
+--  ORACLE ï¿½ï¿½ï¿½ï¿½
+SELECT EMP_ID "ï¿½ï¿½ï¿½", EMP_NAME "ï¿½ï¿½ï¿½ï¿½ï¿½", DEPT_TITLE "ï¿½Î¼ï¿½ï¿½ï¿½", JOB_NAME "ï¿½ï¿½ï¿½Þ¸ï¿½",
+        LOCAL_NAME "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", NATIONAL_NAME "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", SAL_LEVEL "ï¿½Þ¿ï¿½ ï¿½ï¿½ï¿½"
 FROM EMPLOYEE E, DEPARTMENT, JOB J, LOCATION L, NATIONAL N, SAL_GRADE
-WHERE DEPT_CODE = DEPT_ID           -- ENOLOYEE - DEPARTMENT ¿¬°á
-        AND E.JOB_CODE = J.JOB_CODE -- EMPLOYEE - JOB ¿¬°á
-        AND LOCATION_ID = LOCAL_CODE    -- DEPARTMENT - LOCATION ¿¬°á
-        AND L.NATIONAL_CODE = N.NATIONAL_CODE   -- LOCATION - NATIONAL ¿¬°á
-        AND SALARY BETWEEN MIN_SAL AND MAX_SAL;  -- EMPLOYEE - SAL_GRADE ¿¬°á 
+WHERE DEPT_CODE = DEPT_ID           -- ENOLOYEE - DEPARTMENT ï¿½ï¿½ï¿½ï¿½
+        AND E.JOB_CODE = J.JOB_CODE -- EMPLOYEE - JOB ï¿½ï¿½ï¿½ï¿½
+        AND LOCATION_ID = LOCAL_CODE    -- DEPARTMENT - LOCATION ï¿½ï¿½ï¿½ï¿½
+        AND L.NATIONAL_CODE = N.NATIONAL_CODE   -- LOCATION - NATIONAL ï¿½ï¿½ï¿½ï¿½
+        AND SALARY BETWEEN MIN_SAL AND MAX_SAL;  -- EMPLOYEE - SAL_GRADE ï¿½ï¿½ï¿½ï¿½ 
 
---  ANSI ±¸¹®
-SELECT EMP_ID "»ç¹ø", EMP_NAME "»ç¿ø¸í", DEPT_TITLE "ºÎ¼­¸í", JOB_NAME "Á÷±Þ¸í",
-        LOCAL_NAME "Áö¿ª¸í", NATIONAL_NAME "±¹°¡¸í", SAL_LEVEL "±Þ¿© µî±Þ"
+--  ANSI ï¿½ï¿½ï¿½ï¿½
+SELECT EMP_ID "ï¿½ï¿½ï¿½", EMP_NAME "ï¿½ï¿½ï¿½ï¿½ï¿½", DEPT_TITLE "ï¿½Î¼ï¿½ï¿½ï¿½", JOB_NAME "ï¿½ï¿½ï¿½Þ¸ï¿½",
+        LOCAL_NAME "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", NATIONAL_NAME "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", SAL_LEVEL "ï¿½Þ¿ï¿½ ï¿½ï¿½ï¿½"
 FROM EMPLOYEE
-JOIN DEPARTMENT ON (DEPT_CODE = DEPT_ID)            -- EMPLOYEE - DEPARTMENT ¿¬°á    
-JOIN JOB USING(JOB_CODE)                            -- EMPLOYEE - JOB ¿¬°á
-JOIN LOCATION ON (LOCATION_ID = LOCAL_CODE)         -- DEPARTMENT - LOCATION ¿¬°á
-JOIN NATIONAL USING(NATIONAL_CODE)                  -- LOCATION - NATIONAL ¿¬°á
-JOIN SAL_GRADE ON (SALARY BETWEEN MIN_SAL AND MAX_SAL); -- EMPLOYEE -SAL_GRADE ¿¬°á
+JOIN DEPARTMENT ON (DEPT_CODE = DEPT_ID)            -- EMPLOYEE - DEPARTMENT ï¿½ï¿½ï¿½ï¿½    
+JOIN JOB USING(JOB_CODE)                            -- EMPLOYEE - JOB ï¿½ï¿½ï¿½ï¿½
+JOIN LOCATION ON (LOCATION_ID = LOCAL_CODE)         -- DEPARTMENT - LOCATION ï¿½ï¿½ï¿½ï¿½
+JOIN NATIONAL USING(NATIONAL_CODE)                  -- LOCATION - NATIONAL ï¿½ï¿½ï¿½ï¿½
+JOIN SAL_GRADE ON (SALARY BETWEEN MIN_SAL AND MAX_SAL); -- EMPLOYEE -SAL_GRADE ï¿½ï¿½ï¿½ï¿½

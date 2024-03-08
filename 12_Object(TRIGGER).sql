@@ -1,95 +1,95 @@
 /*
-    * Æ®¸®°Å (TRIGGER)
-      : ÁöÁ¤ÇÑ Å×ÀÌºí¿¡ DML(INSERT, UPDATE, DELETE)¹®¿¡ ÀÇÇØ º¯°æ»çÇ× ÀÖÀ» ¶§ (Å×ÀÌºí¿¡ ÀÌº¥Æ®°¡ ¹ß»ýÇßÀ» ¶§)
-        ÀÚµ¿À¸·Î ¸Å¹ø ½ÇÇàÇÒ ³»¿ëÀ» ¹Ì¸® Á¤ÀÇÇØµÎ´Â °Í.
+    * Æ®ï¿½ï¿½ï¿½ï¿½ (TRIGGER)
+      : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ DML(INSERT, UPDATE, DELETE)ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ (ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½)
+        ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ØµÎ´ï¿½ ï¿½ï¿½.
         
-     ex) È¸¿ø Å»Åð ½Ã ±âÁ¸ È¸¿øÅ×ÀÌºí¿¡ µ¥ÀÌÅÍ »èÁ¦(DELETE)ÇÏ°í,
-         Å»Åð È¸¿ø Å×ÀÌºí¿¡ µ¥ÀÌÅÍ Ãß°¡(INSERT)ÇØ¾ß ÇÒ ¶§ ÀÚµ¿À¸·Î ½ÇÇàÇÔ
+     ex) È¸ï¿½ï¿½ Å»ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(DELETE)ï¿½Ï°ï¿½,
+         Å»ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½(INSERT)ï¿½Ø¾ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
          
-         ½Å°íÈ½¼ö Æ¯Á¤°ªÀ» ³Ñ¾î°¬À» ¶§ ÇØ´ç È¸¿øÀ» ºí·¢¸®½ºÆ®·Î Ã³¸®
+         ï¿½Å°ï¿½È½ï¿½ï¿½ Æ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°¬ï¿½ï¿½ ï¿½ï¿½ ï¿½Ø´ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Ã³ï¿½ï¿½
          
-         ÀÔÃâ°í¿¡ ´ëÇÑ µ¥ÀÌÅÍ¸¦ ±â·ÏÇÒ ¶§ ÇØ´ç »óÇ°¿¡ ´ëÇÑ Àç°í ¼ö·®À» °»½ÅÇØ¾ß ÇÒ ¶§
+         ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½Ç°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½ï¿½ ï¿½ï¿½
          
-        * Æ®¸®°ÅÀÇ Á¾·ù
-            - SQL¹®ÀÇ ½ÇÇà ½Ã±â¿¡ µû¸¥ ºÐ·ù
-                + BEFORE TRIGER : ÁöÁ¤ÇÑ Å×ÀÌºí¿¡ ÀÌº¥Æ®°¡ ¹ß»ýÇÏ±â Àü¿¡ Æ®¸®°Å ½ÇÇà
-                + AFTER TRIGGER : ÁöÁ¤ÇÑ Å×ÀÌºí¿¡ ÀÌº¥Æ®°¡ ¹ß»ýÇÑ ÈÄ¿¡ Æ®¸®°Å ½ÇÇà
+        * Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            - SQLï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã±â¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½Ð·ï¿½
+                + BEFORE TRIGER : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ß»ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                + AFTER TRIGGER : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ï¿½ ï¿½Ä¿ï¿½ Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 
-            - SQL¹®¿¡ ÀÇÇØ ¿µÇâÀ» ¹Þ´Â °¢ Çà¿¡ µû¸¥ ºÐ·ù
-                + ¹®Àå Æ®¸®°Å    : ÀÌº¥Æ®°¡ ¹ß»ýÇÑ SQL¹®¿¡ ´ëÇØ µü ÇÑ¹ø¸¸ Æ®¸®°Å ½ÇÇà
-                + ÇÜ Æ®¸®°Å      : ÇØ´ç SQL¹®À» ½ÇÇàÇÒ ¶§¸¶´Ù ¸Å¹ø Æ®¸®°Å ½ÇÇà
-                                  (¿É¼Ç Áß FOR EACH ROW ¼³Á¤ÇØ¾ß ÇÔ)
+            - SQLï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ ï¿½ï¿½ ï¿½à¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½Ð·ï¿½
+                + ï¿½ï¿½ï¿½ï¿½ Æ®ï¿½ï¿½ï¿½ï¿½    : ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ï¿½ SQLï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½ Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                + ï¿½ï¿½ Æ®ï¿½ï¿½ï¿½ï¿½      : ï¿½Ø´ï¿½ SQLï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å¹ï¿½ Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                                  (ï¿½É¼ï¿½ ï¿½ï¿½ FOR EACH ROW ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½ï¿½)
                                   
-                                :OLD - BEFORE UPDATE(¼öÁ¤ Àü ÀÚ·á), BEFORE DELETE (»èÁ¦ Àü ÀÚ·á)
-                                :NEW - AFTER INSERT(Ãß°¡µÈ ÀÚ·á), AFTER UPDATE(¼öÁ¤ ÈÄ ÀÚ·á)
+                                :OLD - BEFORE UPDATE(ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ú·ï¿½), BEFORE DELETE (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ú·ï¿½)
+                                :NEW - AFTER INSERT(ï¿½ß°ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½), AFTER UPDATE(ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ú·ï¿½)
                                 
-    * Æ®¸®°Å ±¸Á¶( »ý¼º ±¸¹® ) 
-        CREATE TRIGGER ÀÌ¸§
-        BEFORE|AFTER INSERT|UPDATE|DELETE ON Å×ÀÌºí¸í
+    * Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½( ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ) 
+        CREATE TRIGGER ï¿½Ì¸ï¿½
+        BEFORE|AFTER INSERT|UPDATE|DELETE ON ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½
         [FOR EACH ROW]
-        [DECLARE] -- º¯¼ö ¹× »ó¼ö ¼±¾ð, ÃÊ±âÈ­
-        BEGIN     -- ½ÇÇàºÎ (SQL¹®, Á¶°Ç¹®, ¹Ýº¹¹®, ...)
-                  -- ÀÌº¥Æ® ¹ß»ý ½Ã ÀÚµ¿À¸·Î Ã³¸®ÇÒ ±¸¹®
-        [EXCEPTION] -- ¿¹¿ÜÃ³¸®ºÎ
+        [DECLARE] -- ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½Ê±ï¿½È­
+        BEGIN     -- ï¿½ï¿½ï¿½ï¿½ï¿½ (SQLï¿½ï¿½, ï¿½ï¿½ï¿½Ç¹ï¿½, ï¿½Ýºï¿½ï¿½ï¿½, ...)
+                  -- ï¿½Ìºï¿½Æ® ï¿½ß»ï¿½ ï¿½ï¿½ ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        [EXCEPTION] -- ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ï¿½ï¿½
         END;
         /
 */
 SET SERVEROUTPUT ON;
--- EMPLOYEE Å×ÀÌºí¿¡ µ¥ÀÌÅÍ°¡ Ãß°¡µÉ ¶§¸¶´Ù '½ÅÀÔ»ç¿ø´Ô È¯¿µÇÕ´Ï´Ù!' Ãâ·Â (Æ®¸®°Å »ý¼º)
+-- EMPLOYEE ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 'ï¿½ï¿½ï¿½Ô»ï¿½ï¿½ï¿½ï¿½ È¯ï¿½ï¿½ï¿½Õ´Ï´ï¿½!' ï¿½ï¿½ï¿½ (Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 CREATE TRIGGER TRG_01
 AFTER INSERT ON EMPLOYEE
 FOR EACH ROW
 BEGIN
-    DBMS_OUTPUT.PUT_LINE('½ÅÀÔ»ç¿ø´Ô È¯¿µÇÕ´Ï´Ù!');
+    DBMS_OUTPUT.PUT_LINE('ï¿½ï¿½ï¿½Ô»ï¿½ï¿½ï¿½ï¿½ È¯ï¿½ï¿½ï¿½Õ´Ï´ï¿½!');
 END;
 /
 
 INSERT INTO EMPLOYEE (EMP_ID, EMP_NAME, EMP_NO, DEPT_CODE, JOB_CODE, HIRE_DATE)
-    VALUES (500, 'ÀÌ¼ø½Å', '111111-1111111', 'D7', 'J7', SYSDATE); 
+    VALUES (500, 'ï¿½Ì¼ï¿½ï¿½ï¿½', '111111-1111111', 'D7', 'J7', SYSDATE); 
     
 INSERT INTO EMPLOYEE (EMP_ID, EMP_NAME, EMP_NO, DEPT_CODE, JOB_CODE, HIRE_DATE)
-    VALUES (501, '±èÀ¯½Å', '111111-1111111', 'D8', 'J7', SYSDATE); 
+    VALUES (501, 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', '111111-1111111', 'D8', 'J7', SYSDATE); 
 --------------------------------------------------------------------------------
--- »óÇ°ÀÔ°í ¹× Ãâ°í °ü·Ã
+-- ï¿½ï¿½Ç°ï¿½Ô°ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
---  1) Å×ÀÌºí, ½ÃÄö½º »ý¼º
+--  1) ï¿½ï¿½ï¿½Ìºï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 CREATE TABLE TB_PRODUCT (
-    PCODE NUMBER PRIMARY KEY,       -- »óÇ°¹øÈ£
-    PNAME VARCHAR2(30) NOT NULL,    -- »óÇ°¸í
-    BRAND VARCHAR2(30) NOT NULL,    -- ºê·£µå
-    PRICE NUMBER,                   -- °¡°Ý
-    STOCK NUMBER DEFAULT 0          -- Àç°í¼ö·®
+    PCODE NUMBER PRIMARY KEY,       -- ï¿½ï¿½Ç°ï¿½ï¿½È£
+    PNAME VARCHAR2(30) NOT NULL,    -- ï¿½ï¿½Ç°ï¿½ï¿½
+    BRAND VARCHAR2(30) NOT NULL,    -- ï¿½ê·£ï¿½ï¿½
+    PRICE NUMBER,                   -- ï¿½ï¿½ï¿½ï¿½
+    STOCK NUMBER DEFAULT 0          -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 );
 
--- »óÇ°¹øÈ£ ÄÃ·³¿¡ »ç¿ëÇÒ ½ÃÄö½º ( 200¹øºÎÅÍ ½ÃÀÛ, 5¾¿ Áõ°¡, Ä³½Ã¸Þ¸ð¸®X) - SEQ_PCODE
+-- ï¿½ï¿½Ç°ï¿½ï¿½È£ ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ( 200ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, 5ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, Ä³ï¿½Ã¸Þ¸ï¿½X) - SEQ_PCODE
 CREATE SEQUENCE SEQ_PCODE
 START WITH 200
 INCREMENT BY 5
 NOCACHE;
 
--- »ùÇÃ µ¥ÀÌÅÍ Ãß°¡
-INSERT INTO TB_PRODUCT VALUES (SEQ_PCODE.NEXTVAL, '°¶·°½Ã24', '»ù¼Û', 1300000, DEFAULT);
-INSERT INTO TB_PRODUCT VALUES (SEQ_PCODE.NEXTVAL, '¾ÆÀÌÆù15', '»ç°ú', 1900000, 10);
-INSERT INTO TB_PRODUCT VALUES (SEQ_PCODE.NEXTVAL, '´ë·úÆù', '»þ¿ì¹Ì', 700000, 30);
+-- ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
+INSERT INTO TB_PRODUCT VALUES (SEQ_PCODE.NEXTVAL, 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½24', 'ï¿½ï¿½ï¿½ï¿½', 1300000, DEFAULT);
+INSERT INTO TB_PRODUCT VALUES (SEQ_PCODE.NEXTVAL, 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½15', 'ï¿½ï¿½ï¿½', 1900000, 10);
+INSERT INTO TB_PRODUCT VALUES (SEQ_PCODE.NEXTVAL, 'ï¿½ï¿½ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½ï¿½ï¿½', 700000, 30);
 
 SELECT * FROM TB_PRODUCT ;
 
-COMMIT;     -- DB¿¡ ¹Ý¿µ
+COMMIT;     -- DBï¿½ï¿½ ï¿½Ý¿ï¿½
 
--- »óÇ° ÀÔÃâ°í »ó¼¼ ÀÌ·Â Å×ÀÌºí
+-- ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½Ìºï¿½
 CREATE TABLE TB_PRODETAIL (
-    DECODE NUMBER PRIMARY KEY,          -- ÀÌ·Â ¹øÈ£
-    PCODE NUMBER REFERENCES TB_PRODUCT, -- »óÇ° ¹øÈ£
-    PDATE DATE NOT NULL,                -- ÀÔÃâ°íÀÏ
-    AMOUNT NUMBER NOT NULL,             -- ÀÔÃâ°í¼ö·®
-    STATUS CHAR(6) CHECK(STATUS IN ('ÀÔ°í', 'Ãâ°í'))    -- »óÅÂ
+    DECODE NUMBER PRIMARY KEY,          -- ï¿½Ì·ï¿½ ï¿½ï¿½È£
+    PCODE NUMBER REFERENCES TB_PRODUCT, -- ï¿½ï¿½Ç° ï¿½ï¿½È£
+    PDATE DATE NOT NULL,                -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    AMOUNT NUMBER NOT NULL,             -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    STATUS CHAR(6) CHECK(STATUS IN ('ï¿½Ô°ï¿½', 'ï¿½ï¿½ï¿½'))    -- ï¿½ï¿½ï¿½ï¿½
 );
--- TB_PRODETAIL Å×ÀÌºíÀÇ DECODE ÄÃ·³¿¡ ´ëÇÑ ½ÃÄö½º (SEQ_DECODE) - Ä³½Ã¸Þ¸ð¸®X
+-- TB_PRODETAIL ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ DECODE ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (SEQ_DECODE) - Ä³ï¿½Ã¸Þ¸ï¿½X
 CREATE SEQUENCE SEQ_DECODE
 NOCACHE;
 
--- TB_PRODETAIL 200¹ø »óÇ°, ¿À´Ã³¯Â¥, 10°³ ÀÔ°í) µ¥ÀÌÅÍ Ãß°¡
-INSERT INTO TB_PRODETAIL VALUES (SEQ_DECODE.NEXTVAL, 200, SYSDATE, 10, 'ÀÔ°í');
+-- TB_PRODETAIL 200ï¿½ï¿½ ï¿½ï¿½Ç°, ï¿½ï¿½ï¿½Ã³ï¿½Â¥, 10ï¿½ï¿½ ï¿½Ô°ï¿½) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
+INSERT INTO TB_PRODETAIL VALUES (SEQ_DECODE.NEXTVAL, 200, SYSDATE, 10, 'ï¿½Ô°ï¿½');
 
 -- TB_PRODUCT
 UPDATE TB_PRODUCT
@@ -98,45 +98,45 @@ WHERE PCODE = 200;
 
 COMMIT;
 
--- 205¹ø »óÇ° ¿À´Ã ³¯Â¥·Î 20°³ ÀÔ°í
-INSERT INTO TB_PRODETAIL VALUES (SEQ_DECODE.NEXTVAL, 205, SYSDATE, 20, 'ÀÔ°í');
+-- 205ï¿½ï¿½ ï¿½ï¿½Ç° ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥ï¿½ï¿½ 20ï¿½ï¿½ ï¿½Ô°ï¿½
+INSERT INTO TB_PRODETAIL VALUES (SEQ_DECODE.NEXTVAL, 205, SYSDATE, 20, 'ï¿½Ô°ï¿½');
 
 UPDATE TB_PRODUCT
 SET STOCK = STOCK + 10
 WHERE PCODE = 200;
 
-ROLLBACK;       -- ¾÷µ¥ÀÌÆ®¸¦ Àß¸øÇØ¼­ ROLLBACK;
+ROLLBACK;       -- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ß¸ï¿½ï¿½Ø¼ï¿½ ROLLBACK;
 
-INSERT INTO TB_PRODETAIL VALUES (SEQ_DECODE.NEXTVAL, 205, SYSDATE, 20, 'ÀÔ°í');
+INSERT INTO TB_PRODETAIL VALUES (SEQ_DECODE.NEXTVAL, 205, SYSDATE, 20, 'ï¿½Ô°ï¿½');
 UPDATE TB_PRODUCT
 SET STOCK = STOCK + 20
 WHERE PCODE = 205;
 ------------------------
--- TB_PRODETAIL Å×ÀÌºí¿¡ INSERT ÀÌº¥Æ® ¹ß»ý ½Ã
--- TB_PRODUCT Å×ÀÌºí¿¡ ¸Å¹ø Àç°í ¼ö·® UPDATE => ÀÚµ¿À¸·Î ¼öÇàµÇ°Ô²û Æ®¸®°Å »ý¼º
+-- TB_PRODETAIL ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ INSERT ï¿½Ìºï¿½Æ® ï¿½ß»ï¿½ ï¿½ï¿½
+-- TB_PRODUCT ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ ï¿½Å¹ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ UPDATE => ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç°Ô²ï¿½ Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 /*
-    - UPDATE Á¶°Ç
+    - UPDATE ï¿½ï¿½ï¿½ï¿½
     
-        * »óÇ°ÀÌ ÀÔ°íµÈ °æ¿ì => ÇØ´ç »óÇ°À» Ã£¾Æ¼­ Àç°í ¼ö·® Áõ°¡
+        * ï¿½ï¿½Ç°ï¿½ï¿½ ï¿½Ô°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ => ï¿½Ø´ï¿½ ï¿½ï¿½Ç°ï¿½ï¿½ Ã£ï¿½Æ¼ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             UPDATE TB_PRODUCT
-            SET STOCK = STOCK + ÀÔ°í¼ö·®(TB_PRODETAIL.AMOUNT)
-            WHERE PCODE = ÀÔ°íµÈ»óÇ°¹øÈ£(TB_PRODETAIL.PCODE)
-        * »óÇ°ÀÌ Ãâ°íµÈ °æ¿ì => ÇØ´ç »óÇ°À» Ã£¾Æ¼­ Àç°í ¼ö·® °¨¼Ò
+            SET STOCK = STOCK + ï¿½Ô°ï¿½ï¿½ï¿½ï¿½ï¿½(TB_PRODETAIL.AMOUNT)
+            WHERE PCODE = ï¿½Ô°ï¿½ï¿½È»ï¿½Ç°ï¿½ï¿½È£(TB_PRODETAIL.PCODE)
+        * ï¿½ï¿½Ç°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ => ï¿½Ø´ï¿½ ï¿½ï¿½Ç°ï¿½ï¿½ Ã£ï¿½Æ¼ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             UPDATE TB_PRODUCT
-            SET STOCK = STOCK - Ãâ°í¼ö·®(TB_PRODETAIL.AMOUNT)
-            WHERE PCODE = Ãâ°íµÈ»óÇ°¹øÈ£(TB_PRODETAIL.PCODE)
+            SET STOCK = STOCK - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(TB_PRODETAIL.AMOUNT)
+            WHERE PCODE = ï¿½ï¿½ï¿½ï¿½È»ï¿½Ç°ï¿½ï¿½È£(TB_PRODETAIL.PCODE)
 */
 --TRG_02
 CREATE TRIGGER TRG_02
 AFTER INSERT ON TB_PRODETAIL
 FOR EACH ROW
 BEGIN
-    -- ÀÔ°í Ãâ°í »óÅÂ (STATUS)
-    IF :NEW.STATUS = 'ÀÔ°í'
+    -- ï¿½Ô°ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (STATUS)
+    IF :NEW.STATUS = 'ï¿½Ô°ï¿½'
         THEN UPDATE TB_PRODUCT
             SET STOCK = STOCK + :NEW.AMOUNT
             WHERE PCODE = :NEW.PCODE;
-    ELSIF :NEW.STATUS = 'Ãâ°í'
+    ELSIF :NEW.STATUS = 'ï¿½ï¿½ï¿½'
          THEN UPDATE TB_PRODUCT
             SET STOCK = STOCK - :NEW.AMOUNT
             WHERE PCODE = :NEW.PCODE;
@@ -144,4 +144,4 @@ BEGIN
 END;
 /
 
-INSERT INTO TB_PRODETAIL VALUES (SEQ_DECODE.NEXTVAL, 220, SYSDATE, 7, 'Ãâ°í');
+INSERT INTO TB_PRODETAIL VALUES (SEQ_DECODE.NEXTVAL, 220, SYSDATE, 7, 'ï¿½ï¿½ï¿½');
